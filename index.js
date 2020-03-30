@@ -12,10 +12,10 @@ const app = express();
 const Date = require('./utils/date')
 const { textHandler } = require('./handler/text');
 
-app.post('/slack/test', (req, res) => {
-  console.log(req.challenge);
+app.post('/slack/test/:challenge', (req, res) => {
+  console.log(req.params.challenge);
   res.status(200).json({
-    challenge: req.challenge
+    challenge: req.params.challenge
   });
 })
 
