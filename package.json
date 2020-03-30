@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "@slack/events-api": "^1.0.1",
     "bluebird": "^3.5.1",
