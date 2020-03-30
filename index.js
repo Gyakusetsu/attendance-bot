@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use('/slack/events', slackEvents.expressMiddleware());
 
 slackEvents.on('message', (event)=> {
+  console.log(event);
   const { user, text, channel } = event;
   if (channel === process.env.CHANNEL_ID && user) {
     textHandler(user, text);

@@ -36,11 +36,6 @@ async function commandHandler(user, command) {
         .reduce((pre, cur) => cur + '\n' + pre);
       sendMessage(process.env.CHANNEL_URL, response)
       break;
-    case 'challenge':
-      sendMessage(process.env.CHANNEL_URL, {
-        challenge: comamnd
-      })
-      break;
     default:
       console.log(`command '${command}' not found`)
   }
