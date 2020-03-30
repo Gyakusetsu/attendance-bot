@@ -12,6 +12,12 @@ const app = express();
 const Date = require('./utils/date')
 const { textHandler } = require('./handler/text');
 
+app.post('/slack/test', (req, res) => {
+  res.send({
+    challenge: req.query.challenge
+  });
+})
+
 app.use(bodyParser.json());
 app.use('/slack/events', slackEvents.expressMiddleware());
 
