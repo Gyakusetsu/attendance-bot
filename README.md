@@ -1,18 +1,8 @@
-Slack Attendace Bot
-===
-## Start
-1. Create slack app
-2. Enable `Incoming Webhooks` and `Event Subscriptions` for the app (`Request URL` is `mydomain/slack/events`)
-3. Subscribe to `message.channels` events in `Event Subscriptions`
-4. Set `CHANNEL_URL` from `Webhook URL` in `Incoming Webhooks`
-5. Set `TOKEN`, `DB_URL`, `CHANNEL_ID` (receive messages from) 
-6. Start server and install slack app from slack api website
-
 To start server:
 ```
 node index.js
 ```
-※ Your `.env` file should have `CHANNEL_URL`, `TOKEN`, `DB_URL`, `CHANNEL_ID`
+※ Your `.env` file should have `TOKEN`, `DB_URL`, `CHANNEL_ID`, `CHANNEL_NAME_TO`
 
 ## Usage
 Send message to bot with:
