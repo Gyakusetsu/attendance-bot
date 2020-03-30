@@ -7,26 +7,26 @@ async function commandHandler(user, command) {
   if (record.length === 0) {
     if (command === 'in') {
       await insertTypeIn(user)
-      sendMessage(process.env.CHANNEL_URL, 'ined')
+      sendMessage(process.env.CHANNEL_NAME_TO, 'ined')
     } else {
-      sendMessage(process.env.CHANNEL_URL, 'you can type in first')
+      sendMessage(process.env.CHANNEL_NAME_TO, 'you can type in first')
     }
   }
   switch (command) {
     case 'in':
       if (record[0].type !== 'in') {
         await insertTypeIn(user);
-        sendMessage(process.env.CHANNEL_URL, 'ined')
+        sendMessage(process.env.CHANNEL_NAME_TO, 'ined')
       } else {
-        sendMessage(process.env.CHANNEL_URL, 'already in')
+        sendMessage(process.env.CHANNEL_NAME_TO, 'already in')
       }
       break;
     case 'out':
       if (record[0].type !== 'out') {
         await insertTypeOut(user);
-        sendMessage(process.env.CHANNEL_URL, 'outed')
+        sendMessage(process.env.CHANNEL_NAME_TO, 'outed')
       } else {
-        sendMessage(process.env.CHANNEL_URL, 'already out')
+        sendMessage(process.env.CHANNEL_NAME_TO, 'already out')
       }
       break;
     case 'list':
@@ -34,7 +34,7 @@ async function commandHandler(user, command) {
       const response = records
         .map(r => `type: ${r.type} time: ${moment(r.timestamp).format()}`)
         .reduce((pre, cur) => cur + '\n' + pre);
-      sendMessage(process.env.CHANNEL_URL, response)
+      sendMessage(process.env.CHANNEL_NAME_TO, response)
       break;
     default:
       console.log(`command '${command}' not found`)
