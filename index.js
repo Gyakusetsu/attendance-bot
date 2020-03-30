@@ -1,32 +1,28 @@
 require('dotenv').config()
-const http = require('http')
-const fetch = require('isomorphic-fetch')
-const createSlackEventAdapter = require('@slack/events-api').createSlackEventAdapter;
-const slackEvents = createSlackEventAdapter(process.env.TOKEN);
-const port = process.env.PORT || 3000;
+var SlackBot = require('slackbots');
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-
-const Date = require('./utils/date')
-const { textHandler } = require('./handler/text');
-
-app.use(bodyParser.json());
-
-app.use('/slack/events', slackEvents.expressMiddleware());
-
-slackEvents.on('message', (event)=> {
-  console.log(event);
-  const { user, text, channel } = event;
-  if (channel === process.env.CHANNEL_ID && user) {
-    textHandler(user, text);
-  }
+// create a bot
+var bot = new SlackBot({
+    token: process.env.TOKEN, // Add a bot https://my.slack.com/services/new/bot and put the token 
+    name: 'Test Attendance'
 });
 
-slackEvents.on('error', console.error);
-
-http.createServer(app).listen(port, () => {
-  console.log(`server listening on port ${port}`);
+bot.on('start', function() {
+    // more information about additional params https://api.slack.com/methods/chat.postMessage
+    var params = {
+        icon_emoji: ':cat:'
+    };
+    
+    // define channel, where bot exist. You can adjust it there https://my.slack.com/services 
+    bot.postMessageToChannel('test-bot', 'meow!', params);
+    
+    // define existing username instead of 'user_name'
+    // bot.postMessageToUser('user_name', 'meow!', params); 
+    
+    // If you add a 'slackbot' property, 
+    // you will post to another user's slackbot channel instead of a direct message
+    // bot.postMessageToUser('user_name', 'meow!', { 'slackbot': true, icon_emoji: ':cat:' }); 
+    
+    // define private group instead of 'private_group', where bot exist
+    // bot.postMessageToGroup('private_group', 'meow!', params); 
 });
-
