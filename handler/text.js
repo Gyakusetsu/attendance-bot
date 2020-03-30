@@ -7,6 +7,7 @@ function textHandler(user, text) {
     case 'in':
     case 'out':
     case 'list':
+    case 'challenge':
       commandHandler(user, t);
       break;
     default:

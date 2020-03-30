@@ -12,7 +12,7 @@ async function commandHandler(user, command) {
       sendMessage(process.env.CHANNEL_URL, 'you can type in first')
     }
   }
-  switch(command) {
+  switch (command) {
     case 'in':
       if (record[0].type !== 'in') {
         await insertTypeIn(user);
@@ -27,7 +27,7 @@ async function commandHandler(user, command) {
         sendMessage(process.env.CHANNEL_URL, 'outed')
       } else {
         sendMessage(process.env.CHANNEL_URL, 'already out')
-      } 
+      }
       break;
     case 'list':
       const records = await selectRecords(user)
@@ -35,6 +35,11 @@ async function commandHandler(user, command) {
         .map(r => `type: ${r.type} time: ${moment(r.timestamp).format()}`)
         .reduce((pre, cur) => cur + '\n' + pre);
       sendMessage(process.env.CHANNEL_URL, response)
+      break;
+    case 'challenge':
+      sendMessage(process.env.CHANNEL_URL, {
+        challenge: comamnd
+      })
       break;
     default:
       console.log(`command '${command}' not found`)
