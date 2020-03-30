@@ -8,13 +8,8 @@ const app = express();
 const Date = require('./utils/date')
 const { textHandler } = require('./handler/text');
 
-var SlackBot = require('slackbots');
-
 // create a bot
-var bot = new SlackBot({
-  token: process.env.TOKEN, // Add a bot https://my.slack.com/services/new/bot and put the token 
-  name: 'attendance-bot'
-});
+var { bot } = require('./bot.js');
 
 bot.on('start', function () {
   // more information about additional params https://api.slack.com/methods/chat.postMessage
@@ -38,10 +33,14 @@ bot.on('start', function () {
 
 bot.on('message', function (event) {
   // all ingoing events https://api.slack.com/rtm
-  const { user, text, channel } = event;
-  console.log(event);
-  if (channel === process.env.CHANNEL_ID && user && text) {
-    textHandler(user, text);
+  try {
+    const { user, text, channel } = event;
+
+    if (channel === process.env.CHANNEL_ID && user && text) {
+      textHandler(user, text);
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
