@@ -13,9 +13,8 @@ const Date = require('./utils/date')
 const { textHandler } = require('./handler/text');
 
 app.post('/slack/test', (req, res) => {
-  console.log(req);
   res.send({
-    challenge: req.body.challenge
+    challenge: req.challenge
   });
 })
 
