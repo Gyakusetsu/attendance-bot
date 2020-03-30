@@ -1,18 +1,17 @@
-const moment = require('moment')
 const { selectLastTypeAndTime, selectRecords, insertTypeIn, insertTypeOut } = require('../db/client');
 const { sendMessage } = require('../utils/messageSender')
 
 async function commandHandler(user, command) {
-  const record = await selectLastTypeAndTime(user);
+  const record = await selectLastTypeAndTime(user) || null;
   if (record.length === 0) {
-    if (command === 'in') {
+    if (command[0] === 'in') {
       await insertTypeIn(user)
       sendMessage(process.env.CHANNEL_NAME_TO, 'ined')
     } else {
       sendMessage(process.env.CHANNEL_NAME_TO, 'you can type in first')
     }
   }
-  switch (command) {
+  switch (command[0]) {
     case 'in':
       if (record[0].type !== 'in') {
         await insertTypeIn(user);
@@ -32,12 +31,12 @@ async function commandHandler(user, command) {
     case 'list':
       const records = await selectRecords(user)
       const response = records
-        .map(r => `type: ${r.type} time: ${moment(r.timestamp).format()}`)
+        .map(r => `type: ${r.type} time: ${r.timestamp}`)
         .reduce((pre, cur) => cur + '\n' + pre);
       sendMessage(process.env.CHANNEL_NAME_TO, response)
       break;
     default:
-      console.log(`command '${command}' not found`)
+      console.log(`command[0] '${command[0]}' not found`)
   }
 }
 

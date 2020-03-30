@@ -2,8 +2,8 @@ const Date = require('../utils/date');
 const { commandHandler } = require('./command')
 
 function textHandler(user, text) {
-  const t = text.toLowerCase();
-  switch(t){
+  const t = text.toLowerCase().split(' ');
+  switch(t[0]){
     case 'in':
     case 'out':
     case 'list':
