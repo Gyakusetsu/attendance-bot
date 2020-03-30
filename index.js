@@ -1,5 +1,10 @@
 require('dotenv').config()
 
+const port = process.env.PORT || 3000;
+const http = require('http')
+const express = require('express');
+const app = express();
+
 const Date = require('./utils/date')
 const { textHandler } = require('./handler/text');
 
@@ -38,4 +43,8 @@ bot.on('message', function (event) {
   if (channel === process.env.CHANNEL_ID && user && text) {
     textHandler(user, text);
   }
+});
+
+http.createServer(app).listen(port, () => {
+  console.log(`server listening on port ${port}`);
 });
