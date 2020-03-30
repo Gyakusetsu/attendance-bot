@@ -14,7 +14,7 @@ const { textHandler } = require('./handler/text');
 
 app.post('/slack/test', (req, res) => {
   res.send({
-    challenge: req.query.challenge
+    challenge: req.body.challenge
   });
 })
 
