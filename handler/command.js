@@ -16,26 +16,29 @@ async function commandHandler(user, command) {
   if (record.length === 0) {
     if (command[0] === 'in') {
       await insertTypeIn(user)
-      sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* ined ${dateNow}`)
+      sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* logged in ${dateNow}`)
     } else {
-      sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* you can type in first`)
+      sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* you can type "in" to login`)
     }
   }
   switch (command[0]) {
     case 'in':
       if (record[0].type !== 'in') {
         await insertTypeIn(user);
-        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* ined ${dateNow}`)
+        sendMessage(
+          process.env.CHANNEL_NAME_TO,
+          `*${userName}* logged in ${dateNow}`
+        );
       } else {
-        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* already in`)
+        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* already logged in`)
       }
       break;
     case 'out':
       if (record[0].type !== 'out') {
         await insertTypeOut(user);
-        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* outed ${dateNow}`)
+        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* logged out ${dateNow}`)
       } else {
-        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* already out`)
+        sendMessage(process.env.CHANNEL_NAME_TO, `*${userName}* already logged out`)
       }
       break;
     case 'list':
